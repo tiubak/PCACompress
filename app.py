@@ -14,7 +14,7 @@ uploaded_file = st.file_uploader("Upload an image (JPEG/PNG)", type=["jpg", "jpe
 if uploaded_file is not None:
     # Load image
     image = Image.open(uploaded_file)
-    st.image(image, caption="Original Image", use_column_width=True)
+    st.image(image, caption="Original Image", width='stretch')
 
     # Show original file size
     uploaded_file.seek(0, os.SEEK_END)
@@ -25,7 +25,7 @@ if uploaded_file is not None:
     # Convert to grayscale
     grayscale_image = image.convert("L")
     grayscale_array = np.array(grayscale_image)
-    st.image(grayscale_image, caption="Grayscale Image", use_column_width=True)
+    st.image(grayscale_image, caption="Grayscale Image", width='stretch')
 
     # Show array sizes
     original_array = np.array(image)
@@ -45,7 +45,7 @@ if uploaded_file is not None:
     reconstructed = pca.inverse_transform(transformed)
     reconstructed_img = (reconstructed * 255).clip(0, 255).astype(np.uint8)
     reconstructed_pil = Image.fromarray(reconstructed_img)
-    st.image(reconstructed_pil, caption=f"Reconstructed Image ({n_components} components: 95% variance)", use_container_width=True)
+    st.image(reconstructed_pil, caption=f"Reconstructed Image ({n_components} components: 95% variance)", width='stretch')
 
     # Save reconstructed image to buffer and show size
     buf = io.BytesIO()
